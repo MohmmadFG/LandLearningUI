@@ -20,6 +20,7 @@ import { useTranslation } from "react-i18next";
 import type { TypeDropMenuItem } from "@/shared/TypesInterface/TypeDropMenuItem";
 import { useCallback } from "react";
 export default function ContinerLogin() {
+  console.log("");
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const memoizedFnLangToArab = useCallback(() => {
