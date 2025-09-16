@@ -1,0 +1,42 @@
+import { styled } from "../styles/stitches.config";
+import { useSpring, animated } from "@react-spring/web";
+
+const ContinerWrong = styled("div", {
+  display: "inline-flex",
+  alignItems: "center",
+  gap: "$textColGap",
+});
+
+const IconWrong = styled("img", {
+  width: "$iconSize",
+  height: "$iconSize",
+});
+
+const MessageWrong = styled("p", {
+  color: "$error",
+  textAlign: "center",
+  fontFamily: "$body",
+  fontSize: "$input",
+  fontStyle: "normal",
+  fontWeight: 800,
+  lineHeight: "normal",
+  letterSpacing: "0.16px",
+  textTransform: "capitalize",
+  padding: "0px",
+  margin: "0px",
+});
+export default function WrongForm({ Message }: { Message: string }) {
+  const fadeIn = useSpring({
+    from: { opacity: 0, filter: "blur(3px)" },
+    to: { opacity: 1, filter: "blur(0px)" },
+    config: { duration: 700 },
+  });
+  const MassgeWithaanimated = animated(MessageWrong);
+
+  return (
+    <ContinerWrong>
+      <IconWrong src="https://img.icons8.com/fluency-systems-filled/26/FA5252/circled-x.png" />
+      <MassgeWithaanimated style={fadeIn}>{Message} </MassgeWithaanimated>
+    </ContinerWrong>
+  );
+}

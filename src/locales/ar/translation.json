@@ -1,0 +1,25 @@
+{
+  "Suggestions": "الاقتراحات",
+  "Support": "الدعم",
+  "Subscription": "الاشتراك",
+  "Language": "اللغة",
+  "Profile": "الملف الشخصي",
+  "Logout": "تسجيل الخروج",
+  "Login": "تسجيل الدخول",
+  "English": "الإنجليزية",
+  "Arabic": "العربية",
+
+  "Settings": "الإعدادات",
+  "Notifications": "الإشعارات",
+
+  "LoginHeader": "تسجيل الدخول",
+  "Email": "البريد الإلكتروني",
+  "Password": "كلمة المرور",
+  "Submit": "إرسال",
+  "GoogleLogin": "دخول بجوجل",
+  "EnteryourEmail": "ادخل البريد الالكتروني",
+  "EnteryourPassword": "ادخل  كلمة السر",
+
+  "ResetPassword": "إعادة تعيين كلمة المرور",
+  "ErrorInvalidLogin": "البريد الإلكتروني أو كلمة المرور غير صحيحة"
+}

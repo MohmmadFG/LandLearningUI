@@ -1,0 +1,24 @@
+{
+  "Suggestions": "Suggestions",
+  "Support": "Support",
+  "Subscription": "Subscription",
+  "Language": "Language",
+  "Profile": "Profile",
+  "Logout": "Logout",
+  "Login": "Login",
+  "English": "English",
+  "Arabic": "Arabic",
+
+  "Settings": "Settings",
+  "Notifications": "Notifications",
+
+  "LoginHeader": "Login",
+  "Email": "Email",
+  "Password": "Password",
+  "Submit": "Submit",
+  "EnteryourPassword": "Enter your Password",
+  "EnteryourEmail": "Enter your Email",
+  "GoogleLogin": "Login with Google",
+  "ResetPassword": "Reset Password",
+  "ErrorInvalidLogin": "Email or password is not valid"
+}
