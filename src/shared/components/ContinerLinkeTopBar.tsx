@@ -1,5 +1,6 @@
 import { styled } from "@stitches/react";
 import type { ReactNode } from "react";
+import React from "react";
 
 const Continer = styled("nav", {
   display: "flex",
@@ -10,10 +11,10 @@ const Continer = styled("nav", {
   width: "fit-content",
 });
 
-export default function ContinerNavtobar({
-  children,
-}: {
-  children: ReactNode;
-}) {
+function ContinerNavtobarOut({ children }: { children: ReactNode }) {
   return <Continer>{children}</Continer>;
 }
+const ContinerNavtobar = React.memo(ContinerNavtobarOut, (prev, next) => {
+  return prev.children === next.children;
+});
+export default ContinerNavtobar;

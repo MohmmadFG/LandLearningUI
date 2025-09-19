@@ -11,6 +11,7 @@ const Continerfilde = styled("div", {
   gap: "8px",
   flexShrink: "0",
 });
+
 const Label = styled("label", {
   alignSelf: "stretch",
   width: "100%",
@@ -27,7 +28,6 @@ const Label = styled("label", {
 const InpuFild = styled("input", {
   height: "$inputHeight",
   flexShrink: 0,
-
   width: "100%",
   alignSelf: "stretch",
   borderRadius: "$field",
@@ -44,28 +44,25 @@ const InpuFild = styled("input", {
   },
 });
 
-interface InputTextFildsProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
-  labelName: string;
-  type: string;
-  widthDev: string;
-  fontSize?: string;
-}
-
-function InputTextFildsOut({
+export default function InputTextFilds({
   labelName,
   type,
-  widthDev,
+  widthDev = "100%",
   fontSize = "20px",
   ...props
-}: InputTextFildsProps) {
+}: {
+  labelName: string;
+  type: string;
+  widthDev?: string;
+  fontSize?: string;
+}) {
   const { t } = useTranslation();
 
   return (
     <Continerfilde style={{ width: widthDev }}>
       <Label>{t(labelName)}</Label>
       <InpuFild
-        style={{ fontSize: fontSize }}
+        style={{ fontSize }}
         {...props}
         placeholder={t(`Enteryour${labelName}`)}
         type={type}
@@ -73,16 +70,3 @@ function InputTextFildsOut({
     </Continerfilde>
   );
 }
-
-const InputTextFilds = React.memo(InputTextFildsOut, (prevProps, nextProps) => {
-  return (
-    prevProps.labelName === nextProps.labelName &&
-    prevProps.widthDev === nextProps.widthDev &&
-    prevProps.fontSize == nextProps.fontSize &&
-    prevProps.type === nextProps.type &&
-    prevProps.value === nextProps.value &&
-    prevProps.disabled === nextProps.disabled
-  );
-});
-
-export default InputTextFilds;

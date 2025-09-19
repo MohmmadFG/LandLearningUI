@@ -1,5 +1,5 @@
 import "../login.css";
-import ContinerWithAnimatedAndStyle from "../ContinerWithAnimated";
+import ContinerWithAnimatedAndStyle from "../../../shared/components/ContinerWithAnimated";
 import { HaderContiner } from "../ElementsContner";
 import InputTextFilds from "../../../shared/components/InputFildes";
 import ButtonComponet from "../../../shared/components/Button";
@@ -9,31 +9,32 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { LoginFormInputs } from "../validationInpu";
 import { loginSchema } from "../validationInpu";
-import WrongForm from "../../../shared/components/Wrong";
 import { SendLoginData } from "../ApiService";
 import TopBar from "../../../shared/components/TopBar";
-import ContinerNavtobar from "../../../shared/components/ContinerLinkeTopBar";
-import LinkIconWithLableOrWithOut from "../../../shared/components/LinkIconWithLableOrWithOut";
-import Dropmun from "../../../shared/components/DropMeunu";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import type { TypeDropMenuItem } from "@/shared/TypesInterface/TypeDropMenuItem";
-import { useCallback } from "react";
+import type {
+  DropMenusinfo,
+  Items,
+} from "@/shared/TypesInterface/DropMenusinfo";
+import { useCallback, useMemo } from "react";
+import { leftLinklBlock } from "../../../shared/ShraredList/ListloginRegister";
+import { RghtLinklBlock } from "../../../shared/ShraredList/ListloginRegister";
+import React from "react";
+const WrongForm = React.lazy(() => import("../../../shared/components/Wrong"));
 export default function ContinerLogin() {
-  console.log("");
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const memoizedFnLangToArab = useCallback(() => {
     i18n.changeLanguage("ar");
-  }, [i18n.language]);
+  }, [i18n]);
 
   const memoizedFnLangToEn = useCallback(() => {
     i18n.changeLanguage("en");
-  }, [i18n.language]);
-  const UrlResetPassword = "/passwordChange";
+  }, [i18n]);
   const ResetPasswordPage = useCallback(() => {
-    navigate(UrlResetPassword);
-  }, [UrlResetPassword]);
+    navigate("/passs");
+  }, [navigate]);
 
   const {
     register,
@@ -43,29 +44,72 @@ export default function ContinerLogin() {
     resolver: zodResolver(loginSchema),
     mode: "onSubmit",
   });
-  const isAunt = true;
-  const DropMenuItemsAccount: TypeDropMenuItem[] = [
-    { label: t("Profile"), onClick: () => navigate("/profile") },
-    {
-      label: isAunt ? t("Logout") : t("Login"),
-      onClick: () => {
-        if (isAunt) navigate("/home");
-        else navigate("/login");
+  const Submit = useCallback(
+    async (data: { email: string; password: string }) => {
+      console.log("DASD:", data);
+      const DataComing = await SendLoginData(
+        "http://localhost:5141/api/Auth/login",
+        data
+      );
+      console.log("Response 222:", DataComing);
+    },
+    []
+  );
+  const isAunt = false;
+
+  const memoDropMenuItemsAccount = useMemo(() => {
+    const DropMenuItemsAccount: Items[] = [
+      {
+        label: t("Profile"),
+        onClick: () => {
+          navigate("/profile");
+        },
       },
+      {
+        label: isAunt ? t("Logout") : t("Login"),
+        onClick: () => {
+          if (isAunt) navigate("/home");
+          else navigate("/login");
+        },
+      },
+    ];
+    return DropMenuItemsAccount;
+  }, [isAunt, t, navigate]);
+
+  const memoDropMenuLang = useMemo(() => {
+    const DropMenuLang: Items[] = [
+      {
+        label: t("English"),
+        onClick: memoizedFnLangToEn,
+      },
+      {
+        label: t("Arabic"),
+        onClick: memoizedFnLangToArab,
+      },
+    ];
+    return DropMenuLang;
+  }, [memoizedFnLangToEn, memoizedFnLangToArab, t]);
+
+  const leftDropmeu: DropMenusinfo[] = [
+    {
+      Trigger: "/icons8-language-50.png",
+      Items: memoDropMenuLang,
+      colorBackgorund: "#ffffff",
     },
   ];
 
-  const DropMenuLang: TypeDropMenuItem[] = [
+  const RightDropmeu: DropMenusinfo[] = [
     {
-      label: t("English"),
-      onClick: memoizedFnLangToEn,
-    },
-    {
-      label: t("Arabic"),
-      onClick: memoizedFnLangToArab,
+      Trigger: "/icons8-account-48.png",
+      Items: memoDropMenuItemsAccount,
+      colorBackgorund: "#ffffff",
     },
   ];
 
+  const memoLeftLinklBlock = useMemo(() => leftLinklBlock, []);
+  const memoLeftDropmenu = useMemo(() => leftDropmeu, []);
+  const memoRightLinklBlock = useMemo(() => RghtLinklBlock, []);
+  const memoRightDropmenu = useMemo(() => RightDropmeu, [isAunt]);
   return (
     <>
       <div
@@ -80,55 +124,11 @@ export default function ContinerLogin() {
           variantBackgroun="secondary"
           boxShdowmode={"secondary"}
           colorLogo="white"
-        >
-          <ContinerNavtobar>
-            <LinkIconWithLableOrWithOut
-              colorlabel="FontWhite"
-              withLabel={true}
-              nameLabel="Suggestions"
-              Pageurl="/Suggestions"
-              urlIcon="/icons8-communication-48.png"
-            />
-            <LinkIconWithLableOrWithOut
-              colorlabel="FontWhite"
-              withLabel={true}
-              nameLabel="Support"
-              Pageurl="/Support"
-              urlIcon="/icons8-support-60.png"
-            />
-            <LinkIconWithLableOrWithOut
-              colorlabel="FontWhite"
-              withLabel={true}
-              nameLabel="Subscription"
-              Pageurl="/Subscription"
-              urlIcon="/icons8-arrow-24.png"
-            />
-            <Dropmun
-              Trigger={"/icons8-language-50.png"}
-              Items={DropMenuLang}
-              colorBackgorund={"#ffffff"}
-            ></Dropmun>
-          </ContinerNavtobar>
-          <ContinerNavtobar>
-            <LinkIconWithLableOrWithOut
-              colorlabel="FontWhite"
-              withLabel={false}
-              urlIcon="/icons8-settings-5.png"
-              Pageurl="/setting"
-            />
-            <Dropmun
-              Trigger={"/icons8-account-48.png"}
-              Items={DropMenuItemsAccount}
-              colorBackgorund={"#ffffff"}
-            ></Dropmun>
-
-            <LinkIconWithLableOrWithOut
-              colorlabel="FontWhite"
-              withLabel={false}
-              urlIcon="/icons8-notification-64.png"
-            />
-          </ContinerNavtobar>
-        </TopBar>
+          leftiteamLink={memoLeftLinklBlock}
+          leftiteamDropmenu={memoLeftDropmenu}
+          RightiteamLink={memoRightLinklBlock}
+          RightiteamDropmena={memoRightDropmenu}
+        ></TopBar>
         <ContinerWithAnimatedAndStyle>
           <HaderContiner>{t("Login")}</HaderContiner>
           <div
@@ -139,14 +139,12 @@ export default function ContinerLogin() {
             }}
           >
             <InputTextFilds
-              data-testid="InpuEmail"
               labelName={"Email"}
               {...register("email")}
               widthDev="337px"
               type="text"
             ></InputTextFilds>
             <InputTextFilds
-              data-testid="Inpupassword"
               labelName={"Password"}
               {...register("password")}
               widthDev="337px"
@@ -157,18 +155,17 @@ export default function ContinerLogin() {
           </div>
 
           <ResetPassword onClick={ResetPasswordPage} />
+
           {Object.keys(errors).length > 0 && (
-            <WrongForm Message="Email or Password not valid" />
+            <React.Suspense fallback={<div>Loading...</div>}>
+              <WrongForm Message={t("ErrorInvalidLogin")}></WrongForm>
+            </React.Suspense>
           )}
+
           <ButtonComponet
-            data-testid="btnsadsa"
             labelname="Submit"
-            onClick={handleSubmit(async (data) => {
-              const DataComing = await SendLoginData(
-                "http://localhost:5141/api/Auth/login",
-                data
-              );
-              console.log("Response 222:", DataComing);
+            onClick={handleSubmit(Submit, (err) => {
+              console.log(err);
             })}
           />
         </ContinerWithAnimatedAndStyle>

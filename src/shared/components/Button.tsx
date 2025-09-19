@@ -42,11 +42,13 @@ function ButtonComponetOut({
   wight = "86px",
   hight = "42px",
   onClick,
+  cutsomtop = "46px",
   ...props
 }: {
   labelname: string;
   hight?: string;
   wight?: string;
+  cutsomtop?: string;
   onClick?: () => void;
 }) {
   const { t } = useTranslation();
@@ -57,6 +59,7 @@ function ButtonComponetOut({
       style={{
         width: wight,
         height: hight,
+        top: cutsomtop,
       }}
       onClick={onClick}
       {...props}
@@ -70,7 +73,8 @@ const ButtonComponet = React.memo(ButtonComponetOut, (prevProps, nextProps) => {
     prevProps.hight === nextProps.hight &&
     prevProps.labelname === nextProps.labelname &&
     prevProps.onClick === nextProps.onClick &&
-    prevProps.wight === nextProps.wight
+    prevProps.wight === nextProps.wight &&
+    prevProps.cutsomtop === nextProps.cutsomtop
   );
 });
 export default ButtonComponet;

@@ -31,8 +31,8 @@ export const { styled, css, globalCss, keyframes, theme } = createStitches({
       latterHaderForm: "0.8px",
     },
     sizes: {
-      inputHeight: "42px",
-      iconSize: "26px",
+      inputHeight: "36px",
+      iconSize: "22px",
       buttonWidth: "100px",
       buttonHeight: "50px",
     },

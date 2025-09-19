@@ -1,66 +1,98 @@
-import React from "react";
-import { styled } from "../styles/stitches.config";
+import React, { useMemo } from "react";
 import Logo from "./logo";
-import type { ReactNode } from "react";
-const ContinerTopBar = styled("div", {
-  width: "100%",
-  height: "48px",
-  padding: "24px 12px",
-  display: "flex",
-  flexShrink: 0,
-  alignItems: "center",
-  justifyContent: "space-between",
-  backgroundColor: "#FFF",
-  boxShadow: "4px 4px 10px 0 #020B12",
-  "@media (max-width: 768px)": {
-    height: "auto",
-    gap: "16px",
-    padding: "8px 8px",
-    flexWrap: "wrap",
-  },
 
-  "@media (max-width: 480px)": {
-    height: "auto",
-    gap: "8px",
-    padding: "4px 4px",
-    flexWrap: "wrap",
-  },
-  variants: {
-    bgColor: {
-      default: { backgroundColor: "#FFF" },
-      secondary: { backgroundColor: "rgba(0,0,0,0)" },
-    },
-    Shodw: {
-      default: { boxShadow: "4px 4px 10px 0 #020B12" },
-      secondary: { boxShadow: "none" },
-    },
-  },
-});
-type ContinerTopBarVariant = "secondary" | "default";
-type ColorVariantLogo = "primary" | "secondary" | "white";
-
+import type { DropMenusinfo } from "../TypesInterface/DropMenusinfo";
+import type { LinkeTopbar } from "../TypesInterface/LinkeTopbar";
+import ContinerNavtobar from "./ContinerLinkeTopBar";
+import { LinkIconWithLableOrWithOut } from "./LinkIconWithLableOrWithOut";
+import Dropmun from "./DropMeunu";
+import ContinerTopBarMemo from "./ContinerTopBar";
 function TopBarOut({
-  children,
   variantBackgroun,
   boxShdowmode,
   colorLogo,
+  leftiteamLink,
+  leftiteamDropmenu,
+  RightiteamLink,
+  RightiteamDropmena,
 }: {
-  children: ReactNode;
-  variantBackgroun: ContinerTopBarVariant;
-  boxShdowmode: ContinerTopBarVariant;
-  colorLogo: ColorVariantLogo;
+  variantBackgroun: "secondary" | "default";
+  boxShdowmode: "secondary" | "default";
+  colorLogo: "primary" | "secondary" | "white";
+  leftiteamLink: LinkeTopbar[];
+  leftiteamDropmenu: DropMenusinfo[];
+  RightiteamLink: LinkeTopbar[];
+  RightiteamDropmena: DropMenusinfo[];
 }) {
+  const memoTrans1 = useMemo(
+    () => (
+      <ContinerNavtobar>
+        {leftiteamLink.map((iteam, index) => (
+          <LinkIconWithLableOrWithOut
+            key={index}
+            nameLabel={iteam.nameLabel}
+            urlIcon={iteam.urlIcon}
+            Pageurl={iteam.Pageurl}
+            withLabel={iteam.withLabel}
+            colorlabel={iteam.colorlabel}
+          />
+        ))}
+        {leftiteamDropmenu.map((dropiteam, index) => {
+          return (
+            <Dropmun
+              key={index}
+              Trigger={dropiteam.Trigger}
+              Items={dropiteam.Items}
+              colorBackgorund={dropiteam.colorBackgorund}
+            />
+          );
+        })}
+      </ContinerNavtobar>
+    ),
+    [leftiteamLink, leftiteamDropmenu]
+  );
+  const memoTrans2 = useMemo(
+    () => (
+      <ContinerNavtobar>
+        {RightiteamLink.map((iteam, index) => (
+          <LinkIconWithLableOrWithOut
+            key={index}
+            nameLabel={iteam.nameLabel}
+            urlIcon={iteam.urlIcon}
+            Pageurl={iteam.Pageurl}
+            withLabel={iteam.withLabel}
+            colorlabel={iteam.colorlabel}
+          />
+        ))}
+        {RightiteamDropmena.map((dropiteam, index) => {
+          return (
+            <Dropmun
+              key={index}
+              Trigger={dropiteam.Trigger}
+              Items={dropiteam.Items}
+              colorBackgorund={dropiteam.colorBackgorund}
+            />
+          );
+        })}
+      </ContinerNavtobar>
+    ),
+    [RightiteamLink, RightiteamDropmena]
+  );
+
   return (
-    <ContinerTopBar bgColor={variantBackgroun} Shodw={boxShdowmode}>
+    <ContinerTopBarMemo
+      boxShdowmode={boxShdowmode}
+      variantBackgroun={variantBackgroun}
+    >
       <Logo colorvariant={colorLogo} />
-      {children}
-    </ContinerTopBar>
+      {memoTrans1}
+      {memoTrans2}
+    </ContinerTopBarMemo>
   );
 }
 const TopBar = React.memo(TopBarOut, (prevProps, next) => {
   return (
     prevProps.boxShdowmode === next.boxShdowmode &&
-    prevProps.children === next.children &&
     prevProps.colorLogo === next.colorLogo &&
     prevProps.variantBackgroun === next.variantBackgroun
   );

@@ -6,26 +6,29 @@ import {
   DropdownMenuTrigger,
 } from "../../components/ui/dropdown-menu";
 import { styled } from "../styles/stitches.config";
-import type { TypeDropMenuItem } from "../TypesInterface/TypeDropMenuItem";
-import React from "react";
+import type { Items } from "../TypesInterface/DropMenusinfo";
+import React, { useCallback } from "react";
 import { useState } from "react";
-const Ico = styled("img", {
+const IcoOut = styled("img", {
   width: "26px",
   height: "26px",
 });
 
-export default function Dropmun({
+const Ico = React.memo(IcoOut, (prev, next) => {
+  return prev === next;
+});
+function DropmunOut({
   Trigger,
   Items,
   colorBackgorund,
 }: {
   Trigger: string;
-  Items: TypeDropMenuItem[];
+  Items: Items[];
   colorBackgorund: string;
   colorElm?: string;
 }) {
   const [open, setOpen] = useState(false);
-  const Dropmenuitem = styled(DropdownMenuItem, {
+  const DropmenuitemOut = styled(DropdownMenuItem, {
     cursor: "pointer",
     color: "$primary",
     backgroundColor: colorBackgorund,
@@ -34,12 +37,17 @@ export default function Dropmun({
       color: "WhiteSmoke",
     },
   });
-  const TransFormation = Items.map((item, index) => (
-    <React.Fragment key={index}>
-      <Dropmenuitem onClick={item.onClick}>{item.label}</Dropmenuitem>
-      {index < Items.length - 1 && <DropdownMenuSeparator />}
-    </React.Fragment>
-  ));
+  const Dropmenuitem = React.memo(DropmenuitemOut, (prev, next) => {
+    return prev === next;
+  });
+  const TransFormation = useCallback(() => {
+    return Items.map((item, index) => (
+      <React.Fragment key={index}>
+        <Dropmenuitem onClick={item.onClick}>{item.label}</Dropmenuitem>
+        {index < Items.length - 1 && <DropdownMenuSeparator />}
+      </React.Fragment>
+    ));
+  }, [Items]);
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -58,8 +66,17 @@ export default function Dropmun({
           backgroundColor: colorBackgorund,
         }}
       >
-        {TransFormation}
+        {TransFormation()}
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
+const Dropmun = React.memo(DropmunOut, (prev, next) => {
+  return (
+    prev.Items === next.Items &&
+    prev.colorElm === next.colorElm &&
+    prev.colorBackgorund === next.colorBackgorund &&
+    prev.Trigger === next.Trigger
+  );
+});
+export default Dropmun;

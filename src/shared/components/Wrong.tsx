@@ -1,3 +1,4 @@
+import React from "react";
 import { styled } from "../styles/stitches.config";
 import { useSpring, animated } from "@react-spring/web";
 
@@ -16,7 +17,7 @@ const MessageWrong = styled("p", {
   color: "$error",
   textAlign: "center",
   fontFamily: "$body",
-  fontSize: "$input",
+  fontSize: "17px",
   fontStyle: "normal",
   fontWeight: 800,
   lineHeight: "normal",
@@ -25,6 +26,7 @@ const MessageWrong = styled("p", {
   padding: "0px",
   margin: "0px",
 });
+
 export default function WrongForm({ Message }: { Message: string }) {
   const fadeIn = useSpring({
     from: { opacity: 0, filter: "blur(3px)" },

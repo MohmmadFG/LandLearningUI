@@ -20,5 +20,15 @@
   "EnteryourEmail": "Enter your Email",
   "GoogleLogin": "Login with Google",
   "ResetPassword": "Reset Password",
-  "ErrorInvalidLogin": "Email or password is not valid"
+  "ErrorInvalidLogin": "Email or password is not valid",
+  "Username": "Username",
+  "EnteryourUsername": "Enter your Username",
+  "Register": "Register",
+  "Create": "Create",
+
+  "validation": {
+    "username": "Username must be 3–30 characters and can contain letters, numbers, _ , - , @.",
+    "email": "Please enter a valid email address (e.g., name@example.com).",
+    "password": "Password must be 8–20 characters, include uppercase letters,numbers,and special character (#@$!_)."
+  }
 }

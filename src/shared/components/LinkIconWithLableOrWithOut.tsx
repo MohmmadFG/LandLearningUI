@@ -91,4 +91,5 @@ const LinkIconWithLableOrWithOut = React.memo(
   }
 );
 
-export default LinkIconWithLableOrWithOut;
+export { LinkIconWithLableOrWithOut };
+export type { VareLinkLabelcolor };
