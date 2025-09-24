@@ -1,100 +1,100 @@
 import React, { useMemo } from "react";
 import Logo from "./logo";
 
-import type { DropMenusinfo } from "../TypesInterface/DropMenusinfo";
-import type { LinkeTopbar } from "../TypesInterface/LinkeTopbar";
-import ContinerNavtobar from "./ContinerLinkeTopBar";
-import { LinkIconWithLableOrWithOut } from "./LinkIconWithLableOrWithOut";
-import Dropmun from "./DropMeunu";
-import ContinerTopBarMemo from "./ContinerTopBar";
+import type { DropMenusinfo } from "../models/DropMenusinfo";
+import type { TopBarLink } from "../models/LinkeTopbar";
+import ContainerNavbar from "./ContainerNavbar";
+import { LinksBar } from "./LinksBar";
+import DropMenu from "./DropMeunu";
+import ContainerTopBarMemo from "./ContainerTopBar";
 function TopBarOut({
-  variantBackgroun,
-  boxShdowmode,
+  variantBackground,
+  boxShadowMode,
   colorLogo,
-  leftiteamLink,
-  leftiteamDropmenu,
-  RightiteamLink,
-  RightiteamDropmena,
+  leftItemLink,
+  leftItemDropMenu,
+  rightItemLink,
+  rightItemDropMenu,
 }: {
-  variantBackgroun: "secondary" | "default";
-  boxShdowmode: "secondary" | "default";
+  variantBackground: "secondary" | "default";
+  boxShadowMode: "secondary" | "default";
   colorLogo: "primary" | "secondary" | "white";
-  leftiteamLink: LinkeTopbar[];
-  leftiteamDropmenu: DropMenusinfo[];
-  RightiteamLink: LinkeTopbar[];
-  RightiteamDropmena: DropMenusinfo[];
+  leftItemLink: TopBarLink[];
+  leftItemDropMenu: DropMenusinfo[];
+  rightItemLink: TopBarLink[];
+  rightItemDropMenu: DropMenusinfo[];
 }) {
   const memoTrans1 = useMemo(
     () => (
-      <ContinerNavtobar>
-        {leftiteamLink.map((iteam, index) => (
-          <LinkIconWithLableOrWithOut
+      <ContainerNavbar>
+        {leftItemLink.map((iteam, index) => (
+          <LinksBar
             key={index}
             nameLabel={iteam.nameLabel}
             urlIcon={iteam.urlIcon}
-            Pageurl={iteam.Pageurl}
+            Pageurl={iteam.pageUrl}
             withLabel={iteam.withLabel}
-            colorlabel={iteam.colorlabel}
+            colorlabel={iteam.colorLabel}
           />
         ))}
-        {leftiteamDropmenu.map((dropiteam, index) => {
+        {leftItemDropMenu.map((dropiteam, index) => {
           return (
-            <Dropmun
+            <DropMenu
               key={index}
               Trigger={dropiteam.Trigger}
               Items={dropiteam.Items}
-              colorBackgorund={dropiteam.colorBackgorund}
+              colorBackground={dropiteam.colorBackground}
             />
           );
         })}
-      </ContinerNavtobar>
+      </ContainerNavbar>
     ),
-    [leftiteamLink, leftiteamDropmenu]
+    [leftItemLink, leftItemDropMenu]
   );
   const memoTrans2 = useMemo(
     () => (
-      <ContinerNavtobar>
-        {RightiteamLink.map((iteam, index) => (
-          <LinkIconWithLableOrWithOut
+      <ContainerNavbar>
+        {rightItemLink.map((iteam, index) => (
+          <LinksBar
             key={index}
             nameLabel={iteam.nameLabel}
             urlIcon={iteam.urlIcon}
-            Pageurl={iteam.Pageurl}
+            Pageurl={iteam.pageUrl}
             withLabel={iteam.withLabel}
-            colorlabel={iteam.colorlabel}
+            colorlabel={iteam.colorLabel}
           />
         ))}
-        {RightiteamDropmena.map((dropiteam, index) => {
+        {rightItemDropMenu.map((dropiteam, index) => {
           return (
-            <Dropmun
+            <DropMenu
               key={index}
               Trigger={dropiteam.Trigger}
               Items={dropiteam.Items}
-              colorBackgorund={dropiteam.colorBackgorund}
+              colorBackground={dropiteam.colorBackground}
             />
           );
         })}
-      </ContinerNavtobar>
+      </ContainerNavbar>
     ),
-    [RightiteamLink, RightiteamDropmena]
+    [rightItemLink, rightItemDropMenu]
   );
 
   return (
-    <ContinerTopBarMemo
-      boxShdowmode={boxShdowmode}
-      variantBackgroun={variantBackgroun}
+    <ContainerTopBarMemo
+      boxShadowMode={boxShadowMode}
+      variantBackground={variantBackground}
     >
-      <Logo colorvariant={colorLogo} />
+      <Logo colorVariant={colorLogo} />
       {memoTrans1}
       {memoTrans2}
-    </ContinerTopBarMemo>
+    </ContainerTopBarMemo>
   );
 }
 const TopBar = React.memo(TopBarOut, (prevProps, next) => {
   return (
-    prevProps.boxShdowmode === next.boxShdowmode &&
+    prevProps.boxShadowMode === next.boxShadowMode &&
     prevProps.colorLogo === next.colorLogo &&
-    prevProps.variantBackgroun === next.variantBackgroun
+    prevProps.variantBackground === next.variantBackground
   );
 });
 export default TopBar;

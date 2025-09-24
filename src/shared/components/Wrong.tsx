@@ -2,7 +2,7 @@ import React from "react";
 import { styled } from "../styles/stitches.config";
 import { useSpring, animated } from "@react-spring/web";
 
-const ContinerWrong = styled("div", {
+const ContainerWrong = styled("div", {
   display: "inline-flex",
   alignItems: "center",
   gap: "$textColGap",
@@ -33,12 +33,12 @@ export default function WrongForm({ Message }: { Message: string }) {
     to: { opacity: 1, filter: "blur(0px)" },
     config: { duration: 700 },
   });
-  const MassgeWithaanimated = animated(MessageWrong);
+  const MessageWithAnimated = animated(MessageWrong);
 
   return (
-    <ContinerWrong>
+    <ContainerWrong>
       <IconWrong src="https://img.icons8.com/fluency-systems-filled/26/FA5252/circled-x.png" />
-      <MassgeWithaanimated style={fadeIn}>{Message} </MassgeWithaanimated>
-    </ContinerWrong>
+      <MessageWithAnimated style={fadeIn}>{Message} </MessageWithAnimated>
+    </ContainerWrong>
   );
 }

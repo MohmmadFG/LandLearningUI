@@ -17,15 +17,11 @@ const LogoComp = styled("h3", {
 });
 type ColorVariant = "primary" | "secondary" | "white";
 
-function LogoOut({ colorvariant }: { colorvariant: ColorVariant }) {
-  return <LogoComp colorScheme={colorvariant}>landLearning</LogoComp>;
+function LogoOut({ colorVariant }: { colorVariant: ColorVariant }) {
+  return <LogoComp colorScheme={colorVariant}>landLearning</LogoComp>;
 }
-const Logo = React.memo(LogoOut ,
-(prevProps,nextProps) =>{
-  return (
-     prevProps.colorvariant === nextProps.colorvariant
-  );
-}
-)
+const Logo = React.memo(LogoOut, (prevProps, nextProps) => {
+  return prevProps.colorVariant === nextProps.colorVariant;
+});
 
-export  default Logo;
+export default Logo;

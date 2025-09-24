@@ -1,8 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import ContinerLogin from "../features/login/components/ContinerLogin";
+import LoginPage from "../features/login/page/LoginPage";
 import ProtectedRoute from "./protectorPath";
-import RegisterContiner from "@/features/Register/components/RegisterContiner";
+import RegisterPage from "@/features/Register/page/RegisterPage";
+import EmailConfirmationPage from "@/features/Confirm/pages/ConfirmEmailPage";
+import ResetPasswordPage from "@/features/login/page/ResetPasswordPage";
 export const RouterPath = createBrowserRouter([
   {
     path: "/",
@@ -13,6 +15,8 @@ export const RouterPath = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
-  { path: "/login", element: <ContinerLogin /> },
-  { path: "/Register", element: <RegisterContiner /> },
+  { path: "/login", element: <LoginPage /> },
+  { path: "/register", element: <RegisterPage /> },
+  { path: "/email/confirm", element: <EmailConfirmationPage /> },
+  { path: "/password/reset", element: <ResetPasswordPage /> },
 ]);
